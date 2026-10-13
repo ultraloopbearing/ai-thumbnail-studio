@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-thumbnail-studio"
+version = "0.7.3"
+description = "AI thumbnail generator — prompt-driven, diffusion-backed, batch-ready."
+readme = "CONTRIBUTING.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "ai-thumbnail-studio contributors" }]
+keywords = ["thumbnail", "diffusion", "stable-diffusion", "youtube", "generator", "ai"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: End Users/Desktop",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Graphics",
+]
+
+dependencies = [
+    "torch>=2.4.0",
+    "diffusers>=0.30.0",
+    "transformers>=4.44.0",
+    "accelerate>=0.33.0",
+    "safetensors>=0.4.3",
+    "Pillow>=10.4.0",
+    "numpy>=1.26",
+    "pydantic>=2.8",
+    "typer>=0.12.3",
+    "rich>=13.7.1",
+    "python-dotenv>=1.0.1",
+    "httpx>=0.27.0",
+    "watchdog>=4.0.1",
+]
+
+[project.optional-dependencies]
+cuda = ["torch>=2.4.0+cu124"]
+rocm = ["torch>=2.4.0+rocm6.1"]
+dev = ["pytest>=8.2", "pytest-asyncio>=0.23", "ruff>=0.5.5", "mypy>=1.11"]
+
+[project.scripts]
+thumbnail-studio = "ai_thumbnail_studio.__main__:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ai_thumbnail_studio"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
